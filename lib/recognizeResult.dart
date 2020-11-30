@@ -9,8 +9,8 @@ class RecognizeResult extends GetView<PassDataController> {
       appBar: AppBar(
         title: Text('Recognition Results'),
       ),
-      body: //controller.obx((state) => getBody(context)),
-          getBody(context),
+      body: controller.obx((state) => getBody(context)),
+      //getBody(context),
     );
   }
 

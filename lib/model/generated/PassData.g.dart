@@ -3,11 +3,11 @@ import 'package:nsg_data/nsg_data.dart';
 import '../dataControllerModel.dart';
 class PassDataGenerated extends NsgDataItem {
  static const name_number = 'number';
- static const name_issueDate = 'IssueDate';
- static const name_issueBy = 'IssueBy';
- static const name_firstName = 'FirstName';
- static const name_secondName = 'SecondName';
- static const name_lastName = 'LastName';
+ static const name_issueDate = 'issueDate';
+ static const name_issueBy = 'issueBy';
+ static const name_firstName = 'firstName';
+ static const name_secondName = 'secondName';
+ static const name_lastName = 'lastName';
 
   @override
   void initialize() {
