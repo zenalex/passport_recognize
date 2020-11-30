@@ -1,50 +1,42 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-
-import 'data.dart';
+import 'package:passport_recognize/model/passDataController.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       home: MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  File _image;
-  final picker = ImagePicker();
-
+class MyHomePage extends StatelessWidget {
   Future getImage() async {
+    final picker = ImagePicker();
     final pickedFile = await picker.getImage(source: ImageSource.camera);
 
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
-    });
+    if (pickedFile != null) {
+      File image = File(pickedFile.path);
+      sendImage(image);
+    } else {
+      print('No image selected.');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Image Picker Example'),
+        title: Text('Passport recognize Example'),
       ),
       body: Center(
-        child: _image == null ? Text('No image selected.') : Image.file(_image),
+        child: Text('Make a photo'),
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -53,20 +45,17 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: getImage,
             tooltip: 'Pick Image',
             child: Icon(Icons.add_a_photo),
-          ),
-          FloatingActionButton(
-            onPressed: sendImage,
-            tooltip: 'Send Image',
-            child: Icon(Icons.send),
           )
         ],
       ),
     );
   }
 
-  void sendImage() {
-    var pm = PictureManagement();
-    pm.fileName = _image.path;
-    pm.sendData();
+  void sendImage(File image) {
+    Get.put(PassDataController(), permanent: true);
+    var controller = Get.find<PassDataController>();
+    controller.isUploaded = false;
+    controller.dataReady = false;
+    controller.recognize(image.path);
   }
 }
