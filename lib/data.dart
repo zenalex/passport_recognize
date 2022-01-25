@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:passport_recognize/model/passDataController.dart';
 
 class PictureManagement {
-  String fileName;
+  String fileName = '';
   Future<io.FormData> formData() async {
     return io.FormData.fromMap({
       "file": await io.MultipartFile.fromFile(fileName, filename: "pic"),

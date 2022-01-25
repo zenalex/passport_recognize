@@ -37,7 +37,7 @@ class PassDataController extends NsgDataController<PassData> {
 
   @override
   void onInit() {
-    var provider = NsgDataProvider();
+    var provider = NsgDataProvider(firebaseToken: '');
     provider.serverUri = "http://alex.nsgsoft.ru:5073/";
     provider.useNsgAuthorization = false;
 
